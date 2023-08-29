@@ -1,0 +1,131 @@
+﻿
+
+
+
+<a  class="btn btn-primary" onclick="PopUpForm('@Url.Action("Create","User")')">Add New</a>
+
+<table class="table table-striped table-bordered" id="EmployeeTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Salary</th>
+            <th>Age</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+   
+</table>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+@section Scripts
+{
+   
+
+
+    <script>
+        debugger;
+        $(document).ready(function () {
+            $('#EmployeeTable').dataTable({
+                "ajax":{
+                    "url": "/User/GetData",
+                    "type": "GET",
+                    "datatype": "Json",
+                },
+                "columns": [
+                    
+                    { "data": "name" },
+                    { "data": "email" },
+                    { "data": "gender" },
+                    { "data": "salary" },
+                    { "data": "age" },
+                    {
+                        "data": "id", "render": function () {
+                            return "<a class='btn btn-success' onclick=Edit('@Url.Action("Create","User")')>Edit</a>  &nbsp;<a class='btn btn-danger'>Delete</a>"
+                        },
+                        "ordrable": false,
+                        "Width":"150px"
+                    },
+
+                ], 
+                "language": {
+                    "emptyTable":"No data found, Please click on <b> Add New</b> button."
+                }
+            });
+        });
+
+        PopUpForm = (url, title) => {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (res) {
+                    $("#form-modal .modal-body").html(res);
+                    $("#form-modal .modal-title").html(title);
+                    $("#form-modal").modal('show');
+                }
+            });
+        }
+
+        $('#btnsubmit').click(function () {
+            debugger;
+            $.ajax({
+                type: 'POST',
+                url: "/User/Create",
+                success: function (res) {
+                    if (res.success) {
+                        $("#form-modal").modal('hide');
+                        dataTable.ajax.reload();
+                    }
+                    
+                    location.reload();
+                }
+            })
+            return false;
+        });
+
+
+       function Edit(e){
+           debugger
+           var listdata = [];
+           var list = {};
+           var dataid = $('#dataid').val();
+         var name = $('#name').val();
+         var email = $('#email').val();
+         var gender = $('#gender').val();
+         var salary = $('#salary').val();
+         var age = $('#age').val();
+
+         listdata['Name']=name;
+         listdata['Email'] = email;
+         listdata['Gender'] = gender;
+         listdata['Salary'] = salary;
+         listdata['age'] = age
+         list.push['listdata']
+
+            $.ajax({
+                type: 'POST',
+                url: "/User/Create",
+                data: list,
+                success: function (res) {
+                    if (res.success) {
+                        $("#form-modal").modal('hide');
+                        dataTable.ajax.reload();
+                    }
+
+                    location.reload();
+                }
+            })
+       }
+
+    </script>
+}
+
+
+
+
+
+
