@@ -9,7 +9,7 @@ namespace DataAbd.Controllers
 {
     public class UserController : Controller
     {
-        // we use contructor
+        // we use Contructor
         private AppDbContext context;
 
         public UserController(AppDbContext _context)
