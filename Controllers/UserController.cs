@@ -61,6 +61,7 @@ namespace DataAbd.Controllers
         }
 
         [HttpPost]
+
         public ActionResult Edit(Employee employee)
         {
             try
