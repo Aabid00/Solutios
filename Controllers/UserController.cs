@@ -24,6 +24,7 @@ namespace DataAbd.Controllers
 
         public ActionResult GetData()
         {
+            
             var emp = context.employees.ToList();
             return Json(new { data = emp });
         }
