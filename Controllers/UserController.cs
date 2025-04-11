@@ -22,6 +22,7 @@ namespace DataAbd.Controllers
             return View();
         }
 
+        //this is get all record Method
         public ActionResult GetData()
         {
             
