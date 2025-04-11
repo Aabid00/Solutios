@@ -22,8 +22,10 @@ namespace DataAbd.Controllers
             return View();
         }
 
+        //this is get all record Method
         public ActionResult GetData()
         {
+            
             var emp = context.employees.ToList();
             return Json(new { data = emp });
         }
